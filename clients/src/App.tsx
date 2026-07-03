@@ -33,6 +33,8 @@ import { regionalWeather, defaultWeather } from "./weatherData";
 import { cropSamples } from "./samples";
 import { User, DiagnosisResult, ScanRecord, ChatMessage, WeatherInfo, Language, Theme } from "./types";
 
+const API_BASE = "https://plant-doctor-ai-7uec.onrender.com";
+
 export default function App() {
   // 1. Language & Theme States
   const [lang, setLang] = useState<Language>("sw");
@@ -125,8 +127,8 @@ export default function App() {
   ];
 
   useEffect(() => {
-    let stepInterval: NodeJS.Timeout;
-    let progressInterval: NodeJS.Timeout;
+    let stepInterval: ReturnType<typeof setTimeout>
+    let progressInterval: ReturnType<typeof setTimeout>
 
     if (isAnalyzing) {
       setLoadingStep(0);
@@ -220,7 +222,7 @@ export default function App() {
 
     try {
       if (authMode === "login") {
-        const response = await fetch("/api/auth/login", {
+        const response = await fetch(`${API_BASE}/api/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -243,7 +245,7 @@ export default function App() {
           return;
         }
 
-        const response = await fetch("/api/auth/register", {
+        const response = await fetch(`${API_BASE}/api/auth/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
