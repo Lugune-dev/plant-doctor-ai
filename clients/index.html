@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remix: PlantDoctor AI</title>
+    <style>
+      /* Smooth instant loading screen styled specifically for PlantDoctor AI */
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        background-color: #060a08;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      .preloader-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(circle at center, #0d1a14 0%, #060a08 100%);
+        color: #f8fafc;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      /* Animated Glowing Spinner Ring */
+      .glowing-ring {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .ring-outer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 3px solid rgba(34, 197, 94, 0.08);
+        border-top: 3px solid #22c55e;
+        border-radius: 50%;
+        animation: spin-clockwise 2s linear infinite;
+        box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+      }
+
+      .ring-inner {
+        position: absolute;
+        width: 80%;
+        height: 80%;
+        border: 2px solid rgba(16, 185, 129, 0.05);
+        border-bottom: 2px solid #10b981;
+        border-radius: 50%;
+        animation: spin-counter-clockwise 1.5s linear infinite;
+      }
+
+      .leaf-icon-wrapper {
+        position: relative;
+        z-index: 10;
+        background: #09120e;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 25px rgba(34, 197, 94, 0.15);
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+
+      .leaf-icon-wrapper svg {
+        width: 28px;
+        height: 28px;
+        fill: #22c55e;
+      }
+
+      /* Text styling */
+      .brand-title {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        margin: 0 0 8px 0;
+        color: #ffffff;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      }
+
+      .brand-title span {
+        color: #22c55e;
+      }
+
+      .brand-subtitle-sw {
+        font-size: 13px;
+        color: #a7f3d0;
+        font-weight: 600;
+        margin: 0 0 4px 0;
+        letter-spacing: 0.01em;
+      }
+
+      .brand-subtitle-en {
+        font-size: 11px;
+        color: #6ee7b7;
+        opacity: 0.75;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      /* Animated Growing Progress Line */
+      .progress-track {
+        width: 180px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 9px;
+        margin-top: 24px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-bar-growing {
+        height: 100%;
+        width: 40%;
+        background: linear-gradient(90deg, #10b981, #34d399);
+        border-radius: 9px;
+        position: absolute;
+        animation: loading-grow 1.8s ease-in-out infinite;
+      }
+
+      /* Keyframe Animations */
+      @keyframes spin-clockwise {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      @keyframes spin-counter-clockwise {
+        0% { transform: rotate(360deg); }
+        100% { transform: rotate(0deg); }
+      }
+
+      @keyframes pulse-glow {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 35px rgba(34, 197, 94, 0.35);
+        }
+      }
+
+      @keyframes loading-grow {
+        0% {
+          left: -40%;
+          width: 30%;
+        }
+        50% {
+          width: 50%;
+        }
+        100% {
+          left: 110%;
+          width: 30%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The React application will mount inside this element. -->
+    <!-- While downloading resources, these native styles will present a gorgeous loader instantly. -->
+    <div id="root">
+      <div class="preloader-container">
+        <!-- Interactive Glowing Holographic Scanner Ring -->
+        <div class="glowing-ring">
+          <div class="ring-outer"></div>
+          <div class="ring-inner"></div>
+          <div class="leaf-icon-wrapper">
+            <svg viewBox="0 0 24 24">
+              <path d="M17,8C8,10 5.9,16.17 3.82,21.34L2.18,20.66C4.26,15.49 6.1,9.4 15.2,7.2C13,5.3 9.5,4 5,4V2C11.5,2 15.5,3.9 18.5,7C21.5,3.9 25.5,2 32,2V4C27.5,4 24,5.3 21.8,7.2C21.1,7.37 20.4,7.54 19.7,7.74C18.8,8.1 17.9,8.5 17,8M12,14C11.3,14 10.6,14.1 10,14.3V11.5C10.7,11.2 11.3,11 12,11C14.8,11 17,13.2 17,16C17,16.7 16.8,17.3 16.5,18H13.7C13.9,17.4 14,16.7 14,16C14,14.9 13.1,14 12,14Z" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Descriptive Branding & Status Texts -->
+        <h1 class="brand-title">Plant<span>Doctor</span> AI</h1>
+        <p class="brand-subtitle-sw">Inapakia daktari wako wa mimea wa AI...</p>
+        <p class="brand-subtitle-en">Starting your personal agricultural AI diagnostic expert...</p>
+
+        <!-- Smooth growing loading indicator bar -->
+        <div class="progress-track">
+          <div class="progress-bar-growing"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "email": "mkulima@gmail.com",
+    "fullName": "Juma Said",
+    "location": "Morogoro",
+    "passwordHash": "ef13501a3577007e0c8b7f7fc74d47225139fb29e479a951e5e01cf4f0611d04",
+    "createdAt": "2026-06-30T08:29:21.878Z"
+  },
+  {
+    "id": "1782808242971",
+    "email": "john@gmail.com",
+    "fullName": "john peter",
+    "location": "Morogoro",
+    "passwordHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "createdAt": "2026-06-30T08:30:42.972Z"
+  }
+]
