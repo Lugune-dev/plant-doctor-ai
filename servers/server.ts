@@ -4,15 +4,31 @@ import { GoogleGenAI, Type } from "@google/genai";
 import dotenv from "dotenv";
 import crypto from "crypto";
 import fs from "fs";
+import cors from "cors";
 
 dotenv.config();
 
+
+
 const app = express();
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 const PORT = Number (process.env.PORT) || 3000;
 
 // Set up JSON body parser with increased limit for base64 images
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+const distPath = path.join(process.cwd(), "dist");
+
+app.use(express.static(distPath));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
 
 // --- SECURE AUTHENTICATION SYSTEM ---
 interface DBUser {
