@@ -369,6 +369,13 @@ app.post("/api/chat", authenticateToken, async (req, res) => {
 
 // 3. Vite development server integration / Static files serving
 async function startServer() {
+  app.get("/", (req, res) => {
+  res.json({
+    message: "Plant Doctor AI backend is running 🚀",
+    status: "OK",
+    endpoints: ["/api/auth/login", "/api/auth/register", "/api/diagnose", "/api/chat"]
+  });
+});
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`[PlantDoctor AI] Server running on port ${PORT}`);
   });
