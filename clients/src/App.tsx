@@ -343,7 +343,7 @@ export default function App() {
       // Remove dataurl prefix to send raw base64 data to backend
       const base64Data = selectedImage.split(",")[1];
       
-      const response = await fetch("/api/diagnose", {
+      const response = await fetch(`${API_BASE}/api/diagnose`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -432,7 +432,7 @@ export default function App() {
         text: m.text
       }));
 
-      const response = await fetch("/api/chat", {
+      const response = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
